@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { globleData } from '../context/Contexts'
+import {useParams} from "react-router"
+//import Data from "../answers.json"
 import {
             Table,
             Thead,
@@ -16,10 +18,10 @@ import {
 import axios from 'axios';
 
 export default function ShowAnswer() {
-  
+
   //this is the useContext 
   const {data, setData, answer, setAnswer, store, setStore} = useContext(globleData);
- 
+  
   //It is the hook to invoke the getData function
   useEffect(()=>{
     getData()
@@ -30,7 +32,6 @@ export default function ShowAnswer() {
      const res = await axios.get("http://localhost:3001/answers")
      setStore(res.data)
   }
-//   console.log("store",store)
 
   return (
     <Box w="260px" ml="500px"  >

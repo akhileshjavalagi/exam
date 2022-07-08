@@ -5,29 +5,18 @@ import ShowAnswer from './ShowAnswer';
 import { Link } from 'react-router-dom';
 import { Box, Center, Heading } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/button';
+import Data from "../data.json"
+
 export default function Fetch() {
+  //Data = JSON.parse(Data)
 
   //this is the usecontext imported 
   const {data, setData, answer, setAnswer} = useContext(globleData);
 
   //this is the state to store the answers 
   const [text, setText] = useState({
-    answer : ""
+    answers : ""
   });
-
-  //const [data, setData] = useState([]);
-
-  //this is the useeffect to invoke the function getData
-  useEffect(()=>{
-     getData()
-  },[])
-
-  //this function is to fetch the data from the API
-  const getData = async() =>{
-       const res = await axios.get("http://localhost:3001/questions");
-       setData(res.data)
-       //console.log(res.data)
-  }
 
   //this is the function to store the value of the radio button
   const handleChange = (e) =>{
@@ -44,7 +33,7 @@ export default function Fetch() {
         //here I am putting the condition to stop the incrementing the n value
         //comparing with the data which is coming from the API
 
-        if(n>data.length){
+        if(n>Data.length){
          alert("exam completed Successfully")
         }else{
 
@@ -54,9 +43,10 @@ export default function Fetch() {
 
         //here I am posting the answers to the json
         axios.post("http://localhost:3001/answers",text)
+        
 }
 
-     
+console.log("text",text)
   return (
     <Box>
     <Heading size="lg" color="green">Please choose correct answer</Heading>
@@ -67,7 +57,7 @@ export default function Fetch() {
           // here I am doing conditional rendering
           // I am comparing the n with the questionid which is in the josn data
           // If it matches then it should display the question
-          data.map((e)=>(
+          Data.map((e)=>(
             e.questionid === n  ? 
             <Box>
               <Box ml="50px" display="Flex" alignItems="center"gap="10px">
